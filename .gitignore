@@ -67,6 +67,6 @@ Thumbs.db
 !composer.json
 
 # track these themes
-!wp-content/themes/theme_name/
+!wp-content/themes/gutenberg-books/
 
 .DS_Store
