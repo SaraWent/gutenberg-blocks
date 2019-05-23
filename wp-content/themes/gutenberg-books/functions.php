@@ -120,7 +120,6 @@ add_action( 'widgets_init', 'gutenberg_books_widgets_init' );
  * Enqueue scripts and styles.
  */
 function gutenberg_books_scripts() {
-	wp_enqueue_style( 'gutenberg-books-style', get_stylesheet_uri() );
 
 	wp_enqueue_script( 'gutenberg-books-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 
@@ -129,11 +128,10 @@ function gutenberg_books_scripts() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+	wp_enqueue_style( 'gutenberg-books-style', get_stylesheet_uri() );
+
 }
 add_action( 'wp_enqueue_scripts', 'gutenberg_books_scripts' );
-
-
-add_action( 'wp_enqueue_scripts', 'my_scripts_enqueue' );
 /** Add Gutenburg block support */
 
 function gutenberg_books_setup() {
@@ -167,4 +165,24 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+
+/* Custom Blocks */
+
+/*
+Plugin Name: Gutenberg examples 01
+*/
+function gutenberg_examples_01_register_block() {
+    wp_register_script(
+        'gutenberg-examples-01',
+        plugins_url( 'block.js', __FILE__ ),
+        array( 'wp-blocks', 'wp-element' )
+    );
+ 
+    register_block_type( 'gutenberg-examples/example-01-basic', array(
+        'editor_script' => 'gutenberg-examples-01',
+    ) );
+ 
+}
+add_action( 'init', 'gutenberg_examples_01_register_block' );
+
 
